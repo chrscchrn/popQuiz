@@ -1,0 +1,7 @@
+body {
+    background-position: right top;
+    background-image: url(double-bubble-outline.png);
+}
+.jumbotron {
+    background-color: rgba(255, 235, 205, 0.5);
+}

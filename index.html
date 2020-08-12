@@ -1,0 +1,199 @@
+<html lang="en">
+  <head>
+                                            <!--      PopQuiz!      -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>PopQuiz</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark" style="background-color: #207ec2;">
+        <a class="navbar-brand" href="pop.png"></a>
+          <img src="pop.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          PopQuiz
+        </a>
+    </nav>  
+    <div class="container">
+        <h1 id="putNameHere">Hello,   </h1>
+        <div class="row">
+            <div class="col-sm-2" >
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                      <h1 class="display-6"></h1>
+                      <p class="lead" id="correct"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8" id="question">
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                      <h1 class="display-4" id="questionNum"></h1>
+                      <p class="lead" id="questionElem">Welcome to the quiz! Press start to begin.</p>
+                      <button type="button" class="btn btn-primary btn-lg" id="startButton">Start</button>
+                      <button data-value="0" type="button" class="btn btn-primary btn-lg" id="answer1">Start</button>
+                      <button data-value="1" type="button" class="btn btn-primary btn-lg" id="answer2">Start</button>
+                      <button data-value="2" type="button" class="btn btn-primary btn-lg" id="answer3">Start</button>
+                      <button data-value="3" type="button" class="btn btn-primary btn-lg" id="answer4">Start</button>
+                    </div>
+                </div>       
+            </div>
+            <div class="col-sm-2" id="timeScore">
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-6"></h1>
+                        <p class="lead" id="userScore">Score:</p>
+                        <button type="button" class="btn btn-primary btn-lg" id="saveScore">Save Score</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+    
+
+    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    
+    
+    
+    <script> 
+        
+        //ask user for name and put in usename area
+        const userName = prompt("Please enter your name");
+        document.getElementById("putNameHere").textContent = "Hello, " + userName;
+        
+        //define global and DOM variables
+        const $questionElem = document.getElementById("questionElem");
+        const $startButton = document.getElementById("startButton");
+        const $questionNum = document.getElementById("questionNum");
+        const $Answer1 = document.getElementById("answer1");
+        const $Answer2 = document.getElementById("answer2");
+        const $Answer3 = document.getElementById("answer3");
+        const $Answer4 = document.getElementById("answer4");
+        const $correctAnswer = document.getElementById("correct");
+        const $userScore = document.getElementById("userScore");
+        const $saveScore = document.getElementById("saveScore");
+        
+        let currentQuestion = 0;
+        let userScore = 0;
+        let questions = [
+            {
+                question: "What is the idiom for an IF statement in Javascript?",
+                answers: ["()?:;", "()?;:", "()?/:", "()/:;"],
+                answer: 0
+            },
+            {
+                question: "When should you use Bootstrap?",
+                answers: ["all the time", "never", "half", "when youre feeling lazy"],
+                answer: 3
+            },
+            {
+                question: "How many ID's can an element have at once?",
+                answers: ["0", "1", "2", "3"],
+                answer: 1
+            }, 
+            {
+                question: "Should you name your variables what they are",
+                answers: ["no", "why", "maybe", "yes"], 
+                answer: 3
+            }
+        ]
+
+    
+        $Answer1.style.display = "none";
+        $Answer2.style.display = "none";
+        $Answer3.style.display = "none";
+        $Answer4.style.display = "none";
+
+
+        //functions
+        function startGame() {
+            // currentQuestion + 1;
+            console.log("start button working");
+            $startButton.style.display = "none";
+            nextQuestion();
+        }
+
+
+        function nextQuestion() {
+            $userScore.innerText = userScore;
+            if (currentQuestion == questions.length) {
+                $Answer1.style.display = "none";
+                $Answer2.style.display = "none";
+                $Answer3.style.display = "none";
+                $Answer4.style.display = "none";
+                $questionElem.innerText = "Final Score===================>";
+                $questionNum.style.display = "none";
+
+            }
+            else {
+                $questionNum.textContent = "Question " + currentQuestion;
+                $questionElem.textContent = questions[currentQuestion].question;
+                $Answer1.style.display = "inline";
+                $Answer2.style.display = "inline";
+                $Answer3.style.display = "inline";
+                $Answer4.style.display = "inline";
+                $Answer1.innerText = questions[currentQuestion].answers[0];
+                $Answer2.innerText = questions[currentQuestion].answers[1];
+                $Answer3.innerText = questions[currentQuestion].answers[2];
+                $Answer4.innerText = questions[currentQuestion].answers[3];
+            }
+        }
+
+
+        function selectAnswer() {
+            console.log("select working");
+            var userChoice = this.getAttribute("data-value");
+            console.group(userChoice);
+            if (questions[currentQuestion].answer == userChoice) {
+                userScore++;
+                $correctAnswer.innerText = "You Are Correct!";
+            }
+            else {
+                $correctAnswer.innerText = "You Are Wrong!";
+            }
+            if (currentQuestion < questions.length) {
+                currentQuestion++;
+            }
+            nextQuestion();
+        }
+
+        //answers need to be in local storage
+        function saveScore() {
+            var savedName = userName;
+            var previousScore = localStorage.getItem("userScore") || "0";
+            if (userScore > previousScore) {
+                localStorage.setItem("userName", savedName);
+                localStorage.setItem("userScore", userScore);
+                displayLocal();
+            }
+        }
+
+        function displayLocal() {
+            var user = localStorage.getItem("userName");
+            var score = localStorage.getItem("userScore");
+            $userScore.innerText = "Name: " + user + "\n" + "Score: " + score;
+        }
+
+        displayLocal();
+
+        //processes
+        
+        $startButton.addEventListener("click", startGame);
+        $Answer1.addEventListener("click", selectAnswer);
+        $Answer2.addEventListener("click", selectAnswer);
+        $Answer3.addEventListener("click", selectAnswer);
+        $Answer4.addEventListener("click", selectAnswer);
+        $saveScore.addEventListener("click", saveScore);
+        
+        
+
+    </script>
+  </body>
+</html>
